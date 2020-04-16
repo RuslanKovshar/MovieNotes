@@ -1,0 +1,23 @@
+CREATE TABLE users
+(
+    id       BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email    VARCHAR(255) NOT NULL UNIQUE
+) ENGINE = InnoDB;
+
+CREATE TABLE roles
+(
+    id   BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    role VARCHAR(25) NOT NULL
+) ENGINE = InnoDB;
+
+CREATE TABLE user_roles
+(
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id)
+        REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id)
+        REFERENCES roles (id) ON DELETE CASCADE
+) ENGINE = InnoDB;
