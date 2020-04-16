@@ -21,6 +21,14 @@ public class MovieNote {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public MovieNote() {
+    }
+
+    public MovieNote(LocalDate releaseDate, String title) {
+        this.releaseDate = releaseDate;
+        this.title = title;
+    }
+
     public Long getId() {
         return id;
     }

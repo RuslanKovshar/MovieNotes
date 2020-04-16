@@ -44,11 +44,6 @@ public class UserRestController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Zbs");
-    }
-
     @PostMapping("/auth")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationDto authenticationDto) {
         String username = authenticationDto.getUsername();
