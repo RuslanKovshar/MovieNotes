@@ -26,6 +26,10 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<UserRole> roles;
 
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<MovieNote> movieNotes;
+
     public User() {
     }
 
@@ -73,5 +77,13 @@ public class User {
 
     public void setRoles(List<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public List<MovieNote> getMovieNotes() {
+        return movieNotes;
+    }
+
+    public void setMovieNotes(List<MovieNote> movieNotes) {
+        this.movieNotes = movieNotes;
     }
 }
