@@ -29,7 +29,14 @@ public class UserService {
     }
 
     public User register(User user) {
-        UserRole userRole = userRoleRepository.findByRole(Roles.ROLE_USER);
+        UserRole userRole = userRoleRepository.findByRole(Roles.ROLE_USER)
+                .orElseGet(() -> {
+                    UserRole userRole1 = new UserRole();
+                    userRole1.setId(1L);
+                    userRole1.setRole(Roles.ROLE_USER);
+                    return userRoleRepository.save(userRole1);
+                });
+
         user.setRoles(Collections.singletonList(userRole));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
