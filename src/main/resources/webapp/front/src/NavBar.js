@@ -6,9 +6,12 @@ import Nav from "react-bootstrap/Nav";
 function NavBar() {
     return (
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#home">RNotes</Navbar.Brand>
-            <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
+            <Navbar.Brand href="/">RNotes</Navbar.Brand>
+            <Nav>
+                <Nav.Link href="/">Home</Nav.Link>
+            </Nav>
+            <Nav>
+                <Nav.Link href="/registration">Registration</Nav.Link>
             </Nav>
         </Navbar>
     )
