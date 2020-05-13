@@ -1,5 +1,6 @@
 import React from "react";
 import Api from "./Api";
+import {Redirect} from "react-router";
 
 class Login extends React.Component {
 
@@ -7,7 +8,8 @@ class Login extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            isRedirect: false
         }
     }
 
@@ -31,6 +33,8 @@ class Login extends React.Component {
             console.log(data.data)
             let token = data.data.token;
             localStorage.setItem('token', token);
+
+            this.setState({isRedirect: true})
         }).catch(err => {
             console.log(err)
         })
@@ -38,18 +42,26 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className='container mt-5'>Login page
-                <form onSubmit={this.loginSubmitHandler}>
-                    <input type="text"
-                           name='username'
-                           onChange={this.changeHandler}
-                           value={this.state.username}/>
-                    <input type="password"
-                           name='password'
-                           onChange={this.changeHandler}
-                           value={this.state.password}/>
-                    <button type='submit'>Login</button>
-                </form>
+            <div>
+                {
+                    this.state.isRedirect
+                        ? <Redirect to='/'/>
+
+                        :
+                        <div className='container mt-5'>Login page
+                            <form onSubmit={this.loginSubmitHandler}>
+                                <input type="text"
+                                       name='username'
+                                       onChange={this.changeHandler}
+                                       value={this.state.username}/>
+                                <input type="password"
+                                       name='password'
+                                       onChange={this.changeHandler}
+                                       value={this.state.password}/>
+                                <button type='submit'>Login</button>
+                            </form>
+                        </div>
+                }
             </div>
         );
     }
