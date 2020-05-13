@@ -1,13 +1,11 @@
 package ruslan.kovshar.mmdb.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ruslan.kovshar.mmdb.model.MovieNote;
 
 import java.time.LocalDate;
 
 public class CreateMovieNoteDto {
 
-    @JsonProperty(value = "release_date")
     private LocalDate releaseDate;
     private String title;
 

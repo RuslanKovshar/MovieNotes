@@ -2,14 +2,17 @@ import React from "react";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 import Api from "../Api";
+import {Redirect} from "react-router";
 
 
 class NotesList extends React.Component {
-    token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJGYWJ1bG9TIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4NzY2MTYxOSwiZXhwIjoxNTg3NjY1MjE5fQ.mZweNSAH9wYIZLNwItw6Z_mW4w46ilkREY6Wzz3k5AA';
+    token;
+
     constructor(props) {
         super(props);
         this.state = {
-            notesList: []
+            notesList: [],
+            isRedirected: false
         }
         this.handleNoteUpdate = this.handleNoteUpdate.bind(this);
         this.handleNoteDelete = this.handleNoteDelete.bind(this);
@@ -19,6 +22,7 @@ class NotesList extends React.Component {
 
 
     componentDidMount() {
+        this.token = localStorage.getItem('token');
         Api.get(`api/movie_notes/get`, {
                 params: {},
                 headers: {'Authorization': this.token}
@@ -29,7 +33,10 @@ class NotesList extends React.Component {
             console.log(res.data);
             this.sort(noteList);
             this.setState({notesList: noteList});
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error)
+            this.setState({isRedirected: true})
+        });
     }
 
     handleNoteAdd(note) {
@@ -103,17 +110,24 @@ class NotesList extends React.Component {
 
     render() {
         return (
-            <div className='container'>
-                <AddNote onNoteAdd={this.handleNoteAdd}/>
-                <ul className='NoteList'>
-                    {this.state.notesList.map((note, index) => {
-                        return <NoteItem note={note}
-                                         index={index}
-                                         key={note.id}
-                                         onNoteUpdate={this.handleNoteUpdate}
-                                         onNoteDelete={this.handleNoteDelete}/>
-                    })}
-                </ul>
+            <div>
+                {
+                    this.state.isRedirected ?
+                        <Redirect to='login'/>
+                        :
+                        <div className='container'>
+                            <AddNote onNoteAdd={this.handleNoteAdd}/>
+                            <ul className='NoteList'>
+                                {this.state.notesList.map((note, index) => {
+                                    return <NoteItem note={note}
+                                                     index={index}
+                                                     key={note.id}
+                                                     onNoteUpdate={this.handleNoteUpdate}
+                                                     onNoteDelete={this.handleNoteDelete}/>
+                                })}
+                            </ul>
+                        </div>
+                }
             </div>
         );
     }

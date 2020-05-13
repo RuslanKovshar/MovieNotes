@@ -1,7 +1,9 @@
 package ruslan.kovshar.mmdb.model;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "movie_notes")
@@ -20,6 +22,11 @@ public class MovieNote {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @PostConstruct
+    void setUTCTimezone() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     public MovieNote() {
     }

@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ruslan.kovshar.mmdb.model.MovieNote;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 public class GetMovieNoteDto {
     private Long id;
-
-    @JsonProperty(value = "release_date")
-    private LocalDate releaseDate;
+    private String releaseDate;
     private String title;
 
     public static GetMovieNoteDto fromMovieDto(MovieNote movieNote) {
@@ -22,7 +21,7 @@ public class GetMovieNoteDto {
 
     public GetMovieNoteDto(Long id, LocalDate releaseDate, String title) {
         this.id = id;
-        this.releaseDate = releaseDate;
+        this.releaseDate = releaseDate.toString();
         this.title = title;
     }
 
@@ -34,11 +33,11 @@ public class GetMovieNoteDto {
         this.id = id;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 

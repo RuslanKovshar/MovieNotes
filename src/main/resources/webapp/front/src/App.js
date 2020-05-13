@@ -6,10 +6,10 @@ import './App.css';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import Registration from "./Registration";
+import Login from "./Login";
 
 function App() {
     return (
@@ -22,6 +22,9 @@ function App() {
                     </Route>
                     <Route path="/registration">
                         <Registration/>
+                    </Route>
+                    <Route path="/login">
+                        <Login/>
                     </Route>
                 </Switch>
             </div>

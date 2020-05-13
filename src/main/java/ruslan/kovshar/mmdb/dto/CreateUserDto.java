@@ -17,6 +17,9 @@ public class CreateUserDto {
                 user.getEmail());
     }
 
+    public CreateUserDto() {
+    }
+
     public CreateUserDto(String username, String password, String email) {
         this.username = username;
         this.password = password;
