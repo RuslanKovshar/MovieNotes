@@ -15,9 +15,9 @@ function App() {
     return (
         <Router>
             <div>
-                <NavBar/>
                 <Switch>
                     <Route exact path="/">
+                        <NavBar/>
                         <NotesList/>
                     </Route>
                     <Route path="/registration">

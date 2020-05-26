@@ -23,6 +23,14 @@ class NotesList extends React.Component {
 
     componentDidMount() {
         this.token = localStorage.getItem('token');
+        if (this.token) {
+            this.getNotes();
+        } else {
+            this.setState({isRedirected: true});
+        }
+    }
+
+    getNotes() {
         Api.get(`api/movie_notes/get`, {
                 params: {},
                 headers: {'Authorization': this.token}
@@ -34,8 +42,8 @@ class NotesList extends React.Component {
             this.sort(noteList);
             this.setState({notesList: noteList});
         }).catch(error => {
-            console.log(error)
-            this.setState({isRedirected: true})
+            console.log(error);
+            this.setState({isRedirected: true});
         });
     }
 
