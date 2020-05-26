@@ -2,7 +2,6 @@ import React from "react";
 import Api from "./Api";
 import {Redirect} from "react-router";
 import Form from "react-bootstrap/Form";
-import {Button} from "react-bootstrap";
 
 class Login extends React.Component {
 
