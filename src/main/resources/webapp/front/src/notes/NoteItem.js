@@ -72,7 +72,7 @@ class NoteItem extends React.Component {
 
         return (
             <li className={'noteItem ' + days}>
-                <span>{this.index}</span>
+                <span>{this.index + 1}</span>
                 <span>
                     {
                         isChange
