@@ -1,6 +1,8 @@
 import React from "react";
 import Api from "./Api";
 import {Redirect} from "react-router";
+import Form from "react-bootstrap/Form";
+import {Button} from "react-bootstrap";
 
 class Login extends React.Component {
 
@@ -48,18 +50,36 @@ class Login extends React.Component {
                         ? <Redirect to='/'/>
 
                         :
-                        <div className='container mt-5'>Login page
-                            <form onSubmit={this.loginSubmitHandler}>
-                                <input type="text"
-                                       name='username'
-                                       onChange={this.changeHandler}
-                                       value={this.state.username}/>
-                                <input type="password"
-                                       name='password'
-                                       onChange={this.changeHandler}
-                                       value={this.state.password}/>
-                                <button type='submit'>Login</button>
-                            </form>
+                        <div className='container mt-5'>
+                            <Form onSubmit={this.loginSubmitHandler}>
+                                <Form.Group controlId={"formBasicUsername"}>
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control type='text'
+                                                  className='note-input'
+                                                  placeholder='Username'
+                                                  name='username'
+                                                  onChange={this.changeHandler}/>
+                                    <Form.Control.Feedback type='invalid'>Must contain only digits, letters and . - _
+                                        from 3 to 25
+                                        symbols </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group controlId={"formBasicPassword"}>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type='password'
+                                                  className='note-input'
+                                                  placeholder='Password'
+                                                  name='password'
+                                                  onChange={this.changeHandler}/>
+                                    <Form.Control.Feedback type='invalid'>Must contain only digits, letters and . - _
+                                        from 3 to 25
+                                        symbols </Form.Control.Feedback>
+                                </Form.Group>
+                                <button id='submit-btn'
+                                        className='note-add-btn'
+                                        type='submit'>
+                                    Login
+                                </button>
+                            </Form>
                         </div>
                 }
             </div>

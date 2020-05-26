@@ -81,7 +81,7 @@ class Registration extends React.Component {
         return (
             <div className='container mt-5'>
                 {
-                    this.state.success ? <Alert className='mt-5' variant='success'>New user created</Alert> :
+                    this.state.success ? <Alert className='mt-5' variant='success'>New user created! Go to <a href={"/login"}>login page</a></Alert> :
                         <div/>
                 }
                 {
