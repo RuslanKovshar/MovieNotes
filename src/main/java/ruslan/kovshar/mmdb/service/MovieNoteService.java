@@ -1,9 +1,7 @@
 package ruslan.kovshar.mmdb.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ruslan.kovshar.mmdb.dto.CreateMovieNoteDto;
 import ruslan.kovshar.mmdb.dto.GetMovieNoteDto;
 import ruslan.kovshar.mmdb.model.MovieNote;
@@ -11,9 +9,7 @@ import ruslan.kovshar.mmdb.model.User;
 import ruslan.kovshar.mmdb.repository.MovieNoteRepository;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

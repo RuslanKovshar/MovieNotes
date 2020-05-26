@@ -1,10 +1,8 @@
 package ruslan.kovshar.mmdb.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ruslan.kovshar.mmdb.model.MovieNote;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 
 public class GetMovieNoteDto {
     private Long id;
