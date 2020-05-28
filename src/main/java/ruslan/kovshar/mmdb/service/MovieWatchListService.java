@@ -3,7 +3,7 @@ package ruslan.kovshar.mmdb.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
-import ruslan.kovshar.mmdb.dto.GetMovieWatchListDto;
+import ruslan.kovshar.mmdb.dto.MovieWatchListDto;
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 import ruslan.kovshar.mmdb.model.User;
 import ruslan.kovshar.mmdb.repository.MovieWatchListRepository;
@@ -47,24 +47,24 @@ public class MovieWatchListService {
                 .findAny();
     }
 
-    public Optional<GetMovieWatchListDto> get(User user, long id) {
+    public Optional<MovieWatchListDto> get(User user, long id) {
         Optional<MovieWatchList> watchListOptional = checkForMovieWatchList(user, id);
 
-        Optional<GetMovieWatchListDto> optional = Optional.empty();
+        Optional<MovieWatchListDto> optional = Optional.empty();
 
         if (watchListOptional.isPresent()) {
             MovieWatchList movieWatchList = watchListOptional.get();
-            GetMovieWatchListDto getMovieWatchListDto = GetMovieWatchListDto.fromMovieWatchList(movieWatchList);
-            optional = Optional.of(getMovieWatchListDto);
+            MovieWatchListDto movieWatchListDto = MovieWatchListDto.fromMovieWatchList(movieWatchList);
+            optional = Optional.of(movieWatchListDto);
         }
 
         return optional;
     }
 
-    public List<GetMovieWatchListDto> getAll(User user) {
+    public List<MovieWatchListDto> getAll(User user) {
         return user.getMovieWatchLists()
                 .stream()
-                .map(GetMovieWatchListDto::fromMovieWatchList)
+                .map(MovieWatchListDto::fromMovieWatchList)
                 .collect(Collectors.toList());
     }
 }

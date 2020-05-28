@@ -2,23 +2,23 @@ package ruslan.kovshar.mmdb.dto;
 
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 
-public class GetMovieWatchListDto {
+public class MovieWatchListDto {
     private Long id;
     private String title;
     private boolean isWatched;
 
-    public static GetMovieWatchListDto fromMovieWatchList(MovieWatchList movieWatchList) {
-        return new GetMovieWatchListDto(
+    public static MovieWatchListDto fromMovieWatchList(MovieWatchList movieWatchList) {
+        return new MovieWatchListDto(
                 movieWatchList.getId(),
                 movieWatchList.getTitle(),
                 movieWatchList.isWatched()
         );
     }
 
-    public GetMovieWatchListDto() {
+    public MovieWatchListDto() {
     }
 
-    public GetMovieWatchListDto(Long id, String title, boolean isWatched) {
+    public MovieWatchListDto(Long id, String title, boolean isWatched) {
         this.id = id;
         this.title = title;
         this.isWatched = isWatched;

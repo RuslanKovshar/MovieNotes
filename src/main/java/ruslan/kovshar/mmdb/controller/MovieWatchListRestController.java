@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
-import ruslan.kovshar.mmdb.dto.GetMovieWatchListDto;
+import ruslan.kovshar.mmdb.dto.MovieWatchListDto;
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 import ruslan.kovshar.mmdb.model.User;
 import ruslan.kovshar.mmdb.service.MovieWatchListService;
@@ -45,17 +45,17 @@ public class MovieWatchListRestController {
     public ResponseEntity<?> getAllWatchLists(HttpServletRequest request) {
         User user = userExtractor.extract(request);
 
-        List<GetMovieWatchListDto> watchListDtoList = movieWatchListService.getAll(user);
+        List<MovieWatchListDto> watchListDtoList = movieWatchListService.getAll(user);
         return ResponseEntity.ok().body(watchListDtoList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getWatchList(@PathVariable long id, HttpServletRequest request) {
         User user = userExtractor.extract(request);
-        Optional<GetMovieWatchListDto> listDtoOptional = movieWatchListService.get(user, id);
+        Optional<MovieWatchListDto> listDtoOptional = movieWatchListService.get(user, id);
         if (listDtoOptional.isPresent()) {
-            GetMovieWatchListDto getMovieWatchListDto = listDtoOptional.get();
-            return ResponseEntity.ok(getMovieWatchListDto);
+            MovieWatchListDto movieWatchListDto = listDtoOptional.get();
+            return ResponseEntity.ok(movieWatchListDto);
         } else {
             return ResponseEntity.badRequest().body("Invalid id: " + id);
         }
