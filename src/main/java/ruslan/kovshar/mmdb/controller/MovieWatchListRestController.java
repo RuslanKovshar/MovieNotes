@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
+import ruslan.kovshar.mmdb.dto.GetMovieWatchListDto;
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 import ruslan.kovshar.mmdb.model.User;
 import ruslan.kovshar.mmdb.service.MovieWatchListService;
@@ -11,7 +12,9 @@ import ruslan.kovshar.mmdb.service.utils.UserExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/movie_watchlist")
@@ -38,9 +41,29 @@ public class MovieWatchListRestController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> getAllWatchLists(HttpServletRequest request) {
+        User user = userExtractor.extract(request);
+
+        List<GetMovieWatchListDto> watchListDtoList = movieWatchListService.getAll(user);
+        return ResponseEntity.ok().body(watchListDtoList);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getWatchList(@PathVariable long id, HttpServletRequest request) {
+        User user = userExtractor.extract(request);
+        Optional<GetMovieWatchListDto> listDtoOptional = movieWatchListService.get(user, id);
+        if (listDtoOptional.isPresent()) {
+            GetMovieWatchListDto getMovieWatchListDto = listDtoOptional.get();
+            return ResponseEntity.ok(getMovieWatchListDto);
+        } else {
+            return ResponseEntity.badRequest().body("Invalid id: " + id);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteMovieWatchList(@PathVariable long id,
-                                                  HttpServletRequest request) {
+                                                       HttpServletRequest request) {
         User user = userExtractor.extract(request);
         boolean isDeleted = movieWatchListService.delete(user, id);
         if (isDeleted) {
