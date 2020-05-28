@@ -2,10 +2,7 @@ package ruslan.kovshar.mmdb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 import ruslan.kovshar.mmdb.model.User;
@@ -39,6 +36,18 @@ public class MovieWatchListRestController {
         Map<String, Long> response = new HashMap<>();
         response.put("id", movieWatchList.getId());
         return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteMovieWatchList(@PathVariable long id,
+                                                  HttpServletRequest request) {
+        User user = userExtractor.extract(request);
+        boolean isDeleted = movieWatchListService.delete(user, id);
+        if (isDeleted) {
+            return ResponseEntity.ok().body("Entity with id " + id + " successfully deleted");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid id: " + id);
+        }
     }
 
 }
