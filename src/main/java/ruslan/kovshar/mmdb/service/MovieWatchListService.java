@@ -1,5 +1,6 @@
 package ruslan.kovshar.mmdb.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
@@ -66,5 +67,18 @@ public class MovieWatchListService {
                 .stream()
                 .map(MovieWatchListDto::fromMovieWatchList)
                 .collect(Collectors.toList());
+    }
+
+    public boolean update(MovieWatchListDto movieWatchListDto, User user) {
+        Optional<MovieWatchList> watchListOptional = checkForMovieWatchList(user, movieWatchListDto.getId());
+        if (watchListOptional.isPresent()) {
+            MovieWatchList old = watchListOptional.get();
+
+            BeanUtils.copyProperties(movieWatchListDto, old, "id");
+
+            movieWatchListRepository.save(old);
+            return true;
+        }
+        return false;
     }
 }

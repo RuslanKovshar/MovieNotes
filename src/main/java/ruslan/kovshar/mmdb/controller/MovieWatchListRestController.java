@@ -2,6 +2,7 @@ package ruslan.kovshar.mmdb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ruslan.kovshar.mmdb.dto.CreateMovieWatchListDto;
 import ruslan.kovshar.mmdb.dto.MovieWatchListDto;
@@ -68,6 +69,21 @@ public class MovieWatchListRestController {
         boolean isDeleted = movieWatchListService.delete(user, id);
         if (isDeleted) {
             return ResponseEntity.ok().body("Entity with id " + id + " successfully deleted");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid id: " + id);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateMovieWatchList(@RequestBody @Validated MovieWatchListDto movieWatchListDto,
+                                                  HttpServletRequest request) {
+        User user = userExtractor.extract(request);
+
+        boolean isUpdated = movieWatchListService.update(movieWatchListDto, user);
+
+        long id = movieWatchListDto.getId();
+        if (isUpdated) {
+            return ResponseEntity.ok().body("Entity with id " + id + " successfully updated");
         } else {
             return ResponseEntity.badRequest().body("Invalid id: " + id);
         }

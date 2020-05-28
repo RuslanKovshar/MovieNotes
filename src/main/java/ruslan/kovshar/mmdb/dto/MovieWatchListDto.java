@@ -2,9 +2,14 @@ package ruslan.kovshar.mmdb.dto;
 
 import ruslan.kovshar.mmdb.model.MovieWatchList;
 
+import javax.validation.constraints.NotNull;
+
 public class MovieWatchListDto {
+    @NotNull
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     private boolean isWatched;
 
     public static MovieWatchListDto fromMovieWatchList(MovieWatchList movieWatchList) {
