@@ -30,6 +30,10 @@ public class User {
             mappedBy = "user")
     private List<MovieNote> movieNotes;
 
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<MovieWatchList> movieWatchLists;
+
     public User() {
     }
 
@@ -85,5 +89,13 @@ public class User {
 
     public void setMovieNotes(List<MovieNote> movieNotes) {
         this.movieNotes = movieNotes;
+    }
+
+    public List<MovieWatchList> getMovieWatchLists() {
+        return movieWatchLists;
+    }
+
+    public void setMovieWatchLists(List<MovieWatchList> movieWatchLists) {
+        this.movieWatchLists = movieWatchLists;
     }
 }
