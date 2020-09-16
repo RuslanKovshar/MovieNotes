@@ -57,7 +57,7 @@ public class MovieNoteService {
 
         String title = createMovieNoteDto.getTitle();
         movieNote.setTitle(title != null ? title : movieNote.getTitle());
-        LocalDate releaseDate = createMovieNoteDto.getReleaseDate();
+        Long releaseDate = createMovieNoteDto.getReleaseDate();
         movieNote.setReleaseDate(releaseDate != null ? releaseDate : movieNote.getReleaseDate());
 
         return movieNoteRepository.save(movieNote);

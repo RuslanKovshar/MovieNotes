@@ -6,18 +6,18 @@ import java.time.LocalDate;
 
 public class CreateMovieNoteDto {
 
-    private LocalDate releaseDate;
+    private Long releaseDate;
     private String title;
 
     public MovieNote toMovieNote() {
         return new MovieNote(releaseDate, title);
     }
 
-    public LocalDate getReleaseDate() {
+    public Long getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(Long releaseDate) {
         this.releaseDate = releaseDate;
     }
 
